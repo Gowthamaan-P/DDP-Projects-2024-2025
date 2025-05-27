@@ -1,0 +1,42 @@
+/gate/geometry/setMaterialDatabase /home/gv/SagarED20/geant4/geant4-v11.3.0-install/share/Geant4/data/G4NDL4.7.1
+
+# -------------------------------
+# Simple GATE Macro (Test Version)
+/control/echo *** STARTING SIM ***
+/control/verbose 2
+
+# 1. World Geometry
+/gate/world/geometry/setXLength 1 m
+/gate/world/geometry/setYLength 1 m
+/gate/world/geometry/setZLength 1 m
+/gate/world/setMaterial Air
+/gate/geometry/rebuild
+
+# 2. Physics List
+/gate/physics/addPhysicsList QGSP_BIC_EMY
+
+# 3. Source
+/gate/source/addSource mySource gps
+/gate/source/mySource/gps/particle gamma
+/gate/source/mySource/gps/energy 511 keV
+/gate/source/mySource/gps/type Point
+/gate/source/mySource/gps/centre 0 0 0 cm
+/gate/source/mySource/setActivity 1e3 Bq
+
+# 4. Actor
+/gate/actor/addActor DoseActor myDoseActor
+/gate/actor/myDoseActor/attachTo world
+/gate/actor/myDoseActor/save test_output.mhd
+
+# 5. Init AFTER source and actors are created!
+/gate/run/initialize
+
+# 6. Verbose (optional)
+/gate/application/verbose 1
+
+# 7. Simulation timing
+/gate/application/setTimeStart 0 s
+/gate/application/setTimeStop 0.1 s
+/gate/application/startDAQ
+
+/control/echo *** FINISHED SIM ***
