@@ -20,14 +20,14 @@ RUN pip3 install --no-cache-dir \
 # Install Geant4
 RUN mkdir -p /opt/geant4 && \
     cd /opt/geant4 && \
-    wget https://geant4-data.web.cern.ch/geant4-data/releases/geant4.11.1.1.tar.gz && \
-    tar -xzf geant4.11.1.1.tar.gz && \
-    mkdir geant4.11.1.1-build && \
-    cd geant4.11.1.1-build && \
+    wget https://gitlab.cern.ch/geant4/geant4/-/archive/v11.1.1/geant4-v11.1.1.tar.gz && \
+    tar -xzf geant4-v11.1.1.tar.gz && \
+    mkdir geant4-v11.1.1-build && \
+    cd geant4-v11.1.1-build && \
     cmake -DCMAKE_INSTALL_PREFIX=/opt/geant4/geant4-install \
-          -DGEANT4_USE_OPENGL_X11=ON \
-          -DGEANT4_INSTALL_DATA=ON \
-          ../geant4.11.1.1 && \
+        -DGEANT4_USE_OPENGL_X11=ON \
+        -DGEANT4_INSTALL_DATA=ON \
+        ../geant4-v11.1.1 && \
     make -j$(nproc) && \
     make install
 
