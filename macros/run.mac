@@ -1,0 +1,13 @@
+/run/initialize
+
+# Acquisition loop: 360 steps
+/gate/source/addSourceClock xray
+/gate/source/xray/setForcedUnstableFlag false
+/gate/application/setTimeSlice 1. s
+/gate/application/setTotalTime 360. s
+
+# Rotate source (cone-beam acquisition)
+/gate/source/xray/setRotationAxis 0 1 0
+/gate/source/xray/setRotationAngle 1 deg
+
+/run/beamOn 360
