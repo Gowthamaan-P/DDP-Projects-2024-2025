@@ -14,6 +14,11 @@ This project performs 2D cone-beam X-ray CT reconstruction using Python and opti
 ## 🔧 Setup Instructions
 
 ### 1. Clone the repository and switch to your branch
+```bash
+git clone https://github.com/gowthamaanp/DDP-Projects-2024-2025.git
+cd DDP-PROJECTS-2024-2025
+git checkout xray-ct-image-reconstruction
+```
 Make sure your folder structure looks like this:
 ```
 DDP-PROJECTS-2024-2025/
@@ -26,9 +31,6 @@ DDP-PROJECTS-2024-2025/
 ### 2. Build the Docker Image
 This sets up a container with Python, scikit-image, Geant4, and GATE.
 ```bash
-git clone https://github.com/gowthamaanp/DDP-Projects-2024-2025.git
-cd DDP-PROJECTS-2024-2025
-git checkout xray-ct-image-reconstruction
 docker build -t ct-recon .
 ```
 
