@@ -1,3 +1,4 @@
+# README.md
 # X-ray CT Image Reconstruction
 
 This project performs 2D cone-beam X-ray CT reconstruction using Python and optionally simulates acquisition with Geant4 + GATE.
@@ -12,7 +13,7 @@ This project performs 2D cone-beam X-ray CT reconstruction using Python and opti
 
 ## 🔧 Setup Instructions
 
-### 1. Clone the repository (or copy the project folder)
+### 1. Clone the repository and switch to your branch
 Make sure your folder structure looks like this:
 ```
 DDP-PROJECTS-2024-2025/
@@ -86,4 +87,3 @@ DDP-PROJECTS-2024-2025/
 - Sagar ED20B054
 
 ---
-
