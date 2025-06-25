@@ -13,61 +13,70 @@ This project performs 2D cone-beam X-ray CT reconstruction using Python and opti
 ## 🔧 Setup Instructions
 
 ### 1. Clone the repository (or copy the project folder)
-```bash
-git clone https://github.com/gowthamaanp/DDP-Projects-2024-2025.git
-cd DDP-Projects-2024-2025
+Make sure your folder structure looks like this:
+```
+DDP-PROJECTS-2024-2025/
+├── macros/                  # GATE/Geant4 macro files
+├── python/                  # Python scripts
+├── Dockerfile               # Environment setup
+└── README.md                # This file
 ```
 
 ### 2. Build the Docker Image
-This will set up a container with Python, scikit-image, Geant4, and GATE.
+This sets up a container with Python, scikit-image, Geant4, and GATE.
 ```bash
+cd DDP-PROJECTS-2024-2025
 docker build -t ct-recon .
 ```
 
 ---
 
-## 🚀 Running the Pipeline
+## 🚀 Running the Python Pipeline
 
-### 1. Launch and Run Full Pipeline
-This runs a phantom generation → Radon transform → FBP reconstruction.
+### 1. Launch and Run
+This command runs phantom generation → Radon projection → FBP reconstruction.
 ```bash
 docker run --rm -v $(pwd):/app ct-recon bash /app/python/run.sh
 ```
 
-### 2. Inspect the Output
-Navigate to the project root folder. You should find these files:
+### 2. Output Files
+Look in the root directory (`DDP-PROJECTS-2024-2025/`). You should see:
 - `phantom.png` — synthetic Shepp-Logan phantom
-- `sinogram.png` — 2D sinogram using Radon transform
-- `reconstruction.png` — Reconstructed image via filtered back projection
+- `sinogram.png` — sinogram (Radon transform)
+- `reconstruction.png` — FBP reconstruction
 
 ---
 
-## 📁 File Structure
-```
-ct-reconstruction/
-├── Dockerfile               # Installs Python, Geant4, GATE
-├── python/
-│   ├── phantom_generator.py   # Generates 2D phantom
-│   ├── projector.py           # Radon transform for projections
-│   ├── reconstructor.py       # Reconstructs using FBP
-│   └── run.sh                 # Orchestrates the full workflow
-└── README.md
-```
+## 🧪 Running GATE/Geant4 Simulations
 
----
+### 1. Prepare Macros
+Make sure `ct_setup.mac` and `run.mac` are located inside the `macros/` folder.
 
-## 🧪 Notes on GATE/Geant4 Integration
-- GATE and Geant4 are installed and ready to use inside the container.
-- You can add your `.mac` macro scripts under `/app/macros` and run GATE via:
+### 2. Run GATE
 ```bash
-docker run -it --rm -v $(pwd):/app ct-recon Gate /app/macros/your_macro.mac
+docker run -it --rm -v $(pwd):/app ct-recon Gate /app/macros/ct_setup.mac /app/macros/run.mac
 ```
+
+This will output a ROOT file (e.g., `output.root`) you can post-process for analysis.
 
 ---
 
-## 📌 Tips
-- If building Geant4 is too slow or fails, consider using a pre-built Docker image with GATE from [OpenGATE Docker Hub](https://hub.docker.com/u/opengate).
-- You can also modify the Dockerfile to skip GATE installation if not needed.
+## 📁 File Overview
+```
+DDP-PROJECTS-2024-2025/
+├── macros/
+│   ├── ct_setup.mac         # Defines geometry, source, detector
+│   └── run.mac              # Controls acquisition (rotation, timing)
+│
+├── python/
+│   ├── phantom_generator.py   # Phantom generation (2D)
+│   ├── projector.py           # Radon transform (projections)
+│   ├── reconstructor.py       # Filtered back projection
+│   └── run.sh                 # Full automation script
+│
+├── Dockerfile                 # Builds full sim+recon environment
+└── README.md                  # You're here
+```
 
 ---
 
